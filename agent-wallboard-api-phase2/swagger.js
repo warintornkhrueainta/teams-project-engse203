@@ -5,23 +5,14 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Agent Wallboard API - Enhanced Phase 1',
+      title: 'Agent Wallboard API',
       version: '1.0.0',
-      description: 'Professional Node.js API สำหรับจัดการ Call Center Agents แบบ Real-time',
+      description: 'API สำหรับจัดการ agent และสถานะ',
     },
-    servers: [
-      {
-        url: 'http://localhost:3001/api',
-      },
-    ],
+    servers: [{ url: 'http://localhost:3001/api' }],
   },
-  apis: ['./routes/*.js'], // กำหนดให้ scan comment ในไฟล์ route ทุกไฟล์ใน folder routes
+  apis: ['./routes/*.js'], // JSDoc annotations
 };
 
-const swaggerSpec = swaggerJsdoc(options);
-
-function setupSwagger(app) {
-  app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-}
-
-module.exports = setupSwagger;//  คอมเมนต์
+const specs = swaggerJsdoc(options);
+module.exports = { swaggerUi, specs };
